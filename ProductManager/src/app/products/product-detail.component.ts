@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { IProduct } from './product';
 
@@ -8,14 +8,30 @@ import { IProduct } from './product';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  pageTile: string = 'Product Detail';
+  pageTitle: string = 'Product Detail';
   product: IProduct;
 
-  constructor(private route: ActivatedRoute) {
-    console.log(this.route.snapshot.paramMap.get('id'));
-   }
+  constructor(private route: ActivatedRoute, 
+    private router: Router) {
+  }
+
+  onBack(): void{
+    this.router.navigate(['/products']);
+  }
 
   ngOnInit() {
+    let id = +this.route.snapshot.paramMap.get('id');
+    this.pageTitle += `: ${id}`;
+    this.product = {
+      "productId": id,
+        "productName": "Garden Cart",
+        "productCode": "GDN-0023",
+        "releaseDate": "March 18, 2016",
+        "description": "15 gallon capacity rolling garden cart",
+        "price": 32.99,
+        "starRating": 4.2,
+        "imageUrl": "http://runeman.org/clipart/2019/spade.png"
+      };
   }
 
 }
