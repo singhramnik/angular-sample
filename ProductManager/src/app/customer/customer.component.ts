@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 
 import { Customer } from './customer';
 
-function ratingRange(c: AbstractControl): { [key: string]: boolean } | null {
-  if(c.value !== null && (isNaN(c.value) || c.value < 1 || c.value>5)){
-    return{'range':true};
+function ratingRange(min: number, max: number): ValidatorFn {
+  return (c: AbstractControl): { [key: string]: boolean } | null => {
+    if (c.value !== null && (isNaN(c.value) || c.value < min || c.value > max)) {
+      return { 'range': true };
+    }
+    return null;
   }
-  return null;
 }
 
 @Component({
@@ -28,12 +30,12 @@ export class CustomerComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: '',
       notification: 'email',
-      rating: [null, ratingRange],
+      rating: [null, ratingRange(1, 5)],
       sendCatalog: true
-    });   
+    });
   }
 
-  populateTestData(){
+  populateTestData() {
     this.customerForm.setValue({
       firstName: 'Jack',
       lastName: 'Smith',
@@ -44,21 +46,21 @@ export class CustomerComponent implements OnInit {
     })
   }
 
-  populateTestPatchValue(){
+  populateTestPatchValue() {
     this.customerForm.patchValue({
       firstName: 'Jack',
       lastName: 'Smith'
     })
   }
 
-  save(){
+  save() {
     console.log(this.customerForm);
     console.log('Saved: ' + JSON.stringify(this.customerForm.value));
   }
 
   setNotification(notifyVia: string): void {
     const phoneControl = this.customerForm.get('phone');
-    if(notifyVia === 'text'){
+    if (notifyVia === 'text') {
       phoneControl.setValidators(Validators.required);
     } else {
       phoneControl.clearValidators();
