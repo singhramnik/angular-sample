@@ -17,6 +17,7 @@
                  type="text"
                  placeholder="First Name (required)"
                  formControlName="firstName"
+                 required
                  [ngClass]="{'is-invalid': (customerForm.get('firstName').touched ||
                                             customerForm.get('firstName').dirty) &&
                                             !customerForm.get('firstName').valid }" />
@@ -38,6 +39,7 @@
           <input class="form-control"
                  id="lastNameId"
                  type="text"
+                 required
                  placeholder="Last Name (required)"
                  formControlName="lastName"
                  [ngClass]="{'is-invalid': (customerForm.get('lastName').touched ||
@@ -54,22 +56,23 @@
         </div>
       </div>
 
-      <div formGroupName="emailGroup">
-        <div class="form-group row mb-2">
-          <label class="col-md-2 col-form-label"
-                 for="emailId">Email</label>
-          <div class="col-md-8">
-            <input class="form-control"
-                   id="emailId"
-                   type="email"
-                   placeholder="Email (required)"
-                   formControlName="email"
-                   [ngClass]="{'is-invalid': emailMessage }" />
-            <span class="invalid-feedback">
-              {{ emailMessage }}
-            </span>
-          </div>
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="emailId">Email</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="emailId"
+                 type="email"
+                 placeholder="Email (required)"
+                 formControlName="email"
+                 [ngClass]="{'is-invalid': emailMessage }" />
+          <span class="invalid-feedback">
+            {{ emailMessage }}
+          </span>
         </div>
+      </div>
+      <!-- <div formGroupName="emailGroup">
+       
 
         <div class="form-group row mb-2">
           <label class="col-md-2 col-form-label"
@@ -94,7 +97,7 @@
             </span>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label"
@@ -114,7 +117,7 @@
         </div>
       </div>
 
-      <div class="form-group row mb-2">
+      <!-- <div class="form-group row mb-2">
         <label class="col-md-2 col-form-label pt-0">Send Notifications</label>
         <div class="col-md-8">
           <div class="form-check form-check-inline">
@@ -153,7 +156,7 @@
             </span>
           </span>
         </div>
-      </div>
+      </div> -->
 
       <div class="form-group row mb-2">
         <div class="col-md-8">
@@ -168,7 +171,7 @@
         </div>
       </div>
 
-      <div *ngIf="customerForm.get('sendCatalog').value">
+      <!-- <div *ngIf="customerForm.get('sendCatalog').value">
 
         <div formArrayName="addresses"
              *ngFor="let address of addresses.controls; let i=index">
@@ -289,7 +292,7 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="form-group row mb-2">
         <div class="offset-md-2 col-md-4">
@@ -303,16 +306,22 @@
           <button class="btn btn-outline-secondary"
                   type="button"
                   (click)="populateTestData()">
-            Test Data
+            Test setValue
+          </button>
+          <button class="btn btn-outline-secondary"
+                  type="button"
+                  (click)="populateTestPatchValue()">
+            Test patchValue
           </button>
         </div>
       </div>
     </form>
+    
   </div>
 </div>
 <br>Dirty: {{ customerForm.dirty }}
 <br>Touched: {{ customerForm.touched }}
 <br>Valid: {{ customerForm.valid }}
 <br>Value: {{ customerForm.value | json }}
-<br>Street: {{ addresses.get('0.street1')?.value }}
+<!-- <br>Street: {{ addresses.get('0.street1')?.value }} -->
 <br>&nbsp;
