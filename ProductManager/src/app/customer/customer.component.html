@@ -16,8 +16,7 @@
                  id="firstNameId"
                  type="text"
                  placeholder="First Name (required)"
-                 formControlName="firstName"
-                 required
+                 formControlName="firstName"                 
                  [ngClass]="{'is-invalid': (customerForm.get('firstName').touched ||
                                             customerForm.get('firstName').dirty) &&
                                             !customerForm.get('firstName').valid }" />
@@ -38,8 +37,7 @@
         <div class="col-md-8">
           <input class="form-control"
                  id="lastNameId"
-                 type="text"
-                 required
+                 type="text"                 
                  placeholder="Last Name (required)"
                  formControlName="lastName"
                  [ngClass]="{'is-invalid': (customerForm.get('lastName').touched ||
@@ -65,9 +63,16 @@
                  type="email"
                  placeholder="Email (required)"
                  formControlName="email"
-                 [ngClass]="{'is-invalid': emailMessage }" />
+                 [ngClass]="{'is-invalid': (customerForm.get('email').touched || 
+                                            customerForm.get('email').dirty) &&
+                                            !customerForm.get('email').valid }" />
           <span class="invalid-feedback">
-            {{ emailMessage }}
+            <span *ngIf="customerForm.get('email').errors?.required">
+              Please enter an email address.
+            </span>
+            <span *ngIf="customerForm.get('email').errors?.email">
+              Please enter a valid email address.
+            </span>
           </span>
         </div>
       </div>
